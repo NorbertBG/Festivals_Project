@@ -1,0 +1,94 @@
+{{!Escondemos la navBar}}
+
+<style>
+  header {
+    display: none !important;
+  }
+</style>
+
+<section class="h-screen bg-no-repeat bg-cover bg-zinc-100 border-y-white border-y-xl ">
+  <section class="grid grid-cols-3 pt-16 pb-24  max-h-full hover:max-h-screen">
+
+    <div class="text-9xl  ">
+      <!-- Explanation in JS tab -->
+
+      <!-- The two texts -->
+      <div id="container">
+        <span id="text1"></span>
+        <span id="text2"></span>
+      </div>
+
+      <!-- The SVG filter used to create the merging effect -->
+      <svg id="filters">
+        <defs>
+          <filter id="threshold">
+            <!-- Basically just a threshold effect - pixels with a high enough opacity are set to full opacity, and all other pixels are set to completely transparent. -->
+            <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0
+									0 1 0 0 0
+									0 0 1 0 0
+									0 0 0 255 -140" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+
+    {{!Formularios}}
+
+
+    {{!Formulario de acceso a la web}}
+    <div class="login-box mt-20 ">
+      <h2 class="text-2xl font-bold">Login</h2>
+      <form action="/auth/login" method="POST" class=" shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        {{#if errorLoginMessage }}
+        <div class="message message--error gap-4 text-rose-600">
+          {{ errorLoginMessage }}
+        </div>
+        {{/if}}
+        <div class="user-box">
+          <input type="text" name="email" type="email" required="required">
+          <label>Email</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" type="password" required="required">
+          <label>Password</label>
+        </div>
+        <a href="#">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <button type="submit">Submit</button>
+        </a>
+      </form>
+    </div>
+
+    {{!Formulario de registro a la web}}
+    <div class="login-box mt-20">
+      <h2 class="text-2xl font-bold">Register</h2>
+      <form action="/auth/register" method="POST" class=" shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        {{#if errorLoginMessage }}
+        <div class="message message--error gap-4 text-rose-600">
+          {{ errorLoginMessage }}
+        </div>
+        {{/if}}
+        <div class="user-box">
+          <input type="text" name="email" type="email" required="required">
+          <label>Email</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" type="password" required="required">
+          <label>Password</label>
+        </div>
+        <a href="#">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <button type="submit">Submit</button>
+        </a>
+      </form>
+    </div>
+
+  </section>
+
+</section>

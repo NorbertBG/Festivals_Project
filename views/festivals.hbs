@@ -1,0 +1,18 @@
+<div class="container flex flex-wrap gap-4 mx-3 sm:mx-6 md:mx-8 lg:mx-8 xl:mx-8">
+  {{#each datafromDB }}
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 max-w-sm rounded overflow-hidden shadow-lg mt-10">
+      <img class="w-full h-80 object-cover" src="{{ this.imageUrl }}" alt="Event image">
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2"><a href="/festivals/{{ this.id }}">{{ this.name }}</a></div>
+        <p class="text-gray-700 text-base truncate">
+          {{ this.description }}
+        </p>
+      </div>
+      <div class="px-6 pt-4 pb-2">
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ this.genre }}</span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ this.city }}</span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ this.season }}</span>
+      </div>
+    </div>
+  {{/each}}
+</div>

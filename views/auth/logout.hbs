@@ -1,0 +1,11 @@
+
+{{!Escondemos la navBar}}
+
+<style>header {
+ display: none !important;
+}</style>
+
+{{!-- this file is only shown whenever there is an error during log out --}}
+{{#if errorMessage}}
+    {{errorMessage}}
+{{/if}}
