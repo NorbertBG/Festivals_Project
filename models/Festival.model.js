@@ -22,7 +22,7 @@ const festivalSchema = new Schema(
       type: String,
       required: true,
     },
-    country: { 
+    country: {
       type: String,
       required: true,
     },
@@ -30,11 +30,9 @@ const festivalSchema = new Schema(
       type: String,
       required: true,
     },
-      author: { type: Schema.Types.ObjectId, ref: "User" },
-      title: String,
-      content: String,
-      comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
-    },
+    author: { type: Schema.Types.ObjectId, ref: "User" },
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
+  },
   {
     timestamps: true,
   }

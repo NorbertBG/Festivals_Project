@@ -31,8 +31,15 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 })
 
 /* POST profile page */
-router.post("/profile",isLoggedIn,(request, response, next) => {
-  const { id, email, password, firstName, lastName, bio, profileImage } = request.body;
+router.post("/profile",isLoggedIn, fileUploader.single('profileImage'), (request, response, next) => {
+  const { id, email, password, firstName, lastName, bio, existingImage } = request.body;
+
+  let profileImage;
+  if (request.file) {
+    profileImage = request.file.path;
+  } else {
+    profileImage = existingImage;
+  }
 
   console.log(request.body)
   User.findByIdAndUpdate(id, {
@@ -72,6 +79,7 @@ router.get("/festivals", isLoggedIn, (req, res, next) => {
 router.get("/festivals/new", countryList, isLoggedIn, (req, res, next) => {
   const countries = [];
   // console.log(req.countries)
+  console.log(req.session.currentUser)
   req.countries.forEach(item => {
     countries.push(item);
   });
@@ -83,7 +91,7 @@ router.post("/festivals/new",isLoggedIn, fileUploader.single('eventImage'), (req
   const { name, country, city, description, genre, season } = req.body;
   console.log('this is:', req.file.path)
 
-  Festival.create({ name, country, city, description, genre, season, imageUrl: req.file.path })
+  Festival.create({ name, country, city, description, genre, season, imageUrl: req.file.path, author:req.session.currentUser })
     .then((datafromDB) => {
       console.log(datafromDB)
       res.redirect('/festivals');
@@ -113,6 +121,7 @@ router.get("/festivals/:festivalID", isLoggedIn,(req, res, next) => {
       }
     })
     .then((data) => {
+      console.log(data)
       res.render("details-festival", { data, message, festivalID }
       )
     })
