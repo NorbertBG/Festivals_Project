@@ -31,34 +31,27 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 })
 
 /* POST profile page */
-router.post("/profile",isLoggedIn, fileUploader.single('profileImage'), (request, response, next) => {
-  const { id, email, password, firstName, lastName, bio, existingImage } = request.body;
-
-  let profileImage;
-  if (request.file) {
-    profileImage = request.file.path;
-  } else {
-    profileImage = existingImage;
-  }
-
-  console.log(request.body)
+router.post("/profile",isLoggedIn, fileUploader.single('profileImage'), (req, res, next) => {
+  const { id, email, password, firstName, lastName, bio } = req.body;
+  console.log(req.file)
+  console.log(req.body)
   User.findByIdAndUpdate(id, {
     email: email,
     password: password,
     firstName: firstName,
     lastName: lastName,
     bio: bio,
-    profileImage: profileImage
+    // profileImage: req.file.path
   }, { returnOriginal: false }).then((data) => {
     /**
      * Optional: We set a new variable "message" under request.session
      * which will be used later as a notification message
      */
-    request.session.message = {
+    req.session.message = {
       type: 'success',
       body: 'Your changes has been saved'
     };
-    response.redirect(`/profile`);
+    res.redirect(`/profile`);
 
   })
 })
